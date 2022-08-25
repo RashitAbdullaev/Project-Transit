@@ -1,0 +1,124 @@
+.image_header {
+    background-image: url("International_Trucks_2018_LoneStar_Motion_555704_1920x1080.jpg");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 600px;
+}
+
+.offer {
+    padding-top: 22%;
+    margin-left: 4%;
+}
+
+.offer_title {
+    font-size: 35px;
+    color: white;
+}
+
+.offer_text {
+    font-size: 15px;
+    color: white;
+}
+
+.sec_image {
+    border-radius: 25%;
+    width: 100%;
+    height: 400px;
+}
+
+.section_transit {
+    padding: 25px 0 25px 0;
+    background-color: #121a16;
+}
+
+.section_info {
+    border: solid;
+}
+
+.section_text {
+    color: #525252;
+}
+
+h5 {
+    color: #bbccdd;
+}
+
+.footer_transit {
+    padding: 25px 0 25px 0;
+}
+
+.footer_title {
+    color: #1b1b1b;
+    font-size: 25px;
+}
+
+a {
+    text-decoration: none;
+    color: #525252;
+}
+
+.login_all {
+    background-image: url("look.com.ua-151547.jpg");
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.login1 {
+    opacity: 0.9;
+    border-radius: 35px;
+    padding: 25px;
+    background: #FFDAB9;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.login_title {
+    color: #464646;
+}
+
+.form__input_gr1 {
+    padding-bottom: 20px;
+}
+
+.form__input_gr2 {
+    padding-bottom: 10px;
+}
+
+.controls label {
+    color: white;
+}
+.sign_up{
+      opacity: 0.9;
+    border-radius: 35px;
+    padding: 25px;
+    background: #FFDAB9;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.sign_up_all{
+      background-image: url("doroga_asfalt_razmetka_130996_1920x1080.jpg");
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.btn_create{
+    margin-right: 25px !important;
+}

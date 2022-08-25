@@ -1,0 +1,155 @@
+{% extends "transit/layout/basic.html" %}
+
+{% block Request %}
+<h3 align="center"> Заявки</h3>
+{% if messages%}
+    <div class="alert alert-success">
+        {% for m in messages%}
+        {{m}}
+        {% endfor%}
+    </div>
+{% endif%}
+
+
+<div class="d-flex">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Названиие</th>
+            <th scope="col">Направление</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Масса</th>
+            <th scope="col">Пользователь</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in request_all %}
+        <tr {%if i.id|slugify == request.GET.id %} style="background: #98FB98" {%endif%}>
+            <th>{{i.name}} </th>
+            <td>{{i.direction}}</td>
+            <td>{{i.type}}</td>
+            <td>{{i.time}}</td>
+            <td>{{i.weight}}{{i.measure_name}}</td>
+            <td>{{i.author}}</td>
+            <td>
+                {% if request.user == i.author or user.groups.all.0 != group_v %}
+                <a class="request_update" id="{{i.pk}}" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                    <img src="https://img.icons8.com/nolan/64/edit--v1.png" style="width: 10%"/>
+                </a>
+
+
+                <a id="delete_request" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                onclick="delete_form('{{i.pk}}')">
+                    <img src="https://img.icons8.com/color/48/000000/delete-sign--v1.png" style="width: 10%"/>
+                </a>
+
+                {%endif%}
+                {% if user.groups.all.0 == group_v%}
+                <button type="button" class="btn btn-outline-success btn-sm">Принять</button>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor%}
+        </tbody>
+    </table>
+</div>
+
+<!--модальное окно для выхода-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Выход</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span> Вы действительно хотите выйти ?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" data-bs-dismiss="modal">Нет</button>
+                <form method="post" action="{% url 'account_logout' %}">
+                    {% csrf_token %}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                    {% endif %}
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Да</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Модальное окно для добавление заявок-->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body1">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+    function delete_form(pk) {
+
+        $.ajax({
+                url: '/request_delete/'+pk,
+                type: 'get',
+                success: function (response) {
+                    $('.modal-body1').html(response)
+                }
+            })
+    }
+
+    $(document).ready(function () {
+        $('.add_plan').click(function () {
+            $.ajax({
+                url: '/add',
+                type: 'get',
+                success: function (response) {
+                    $('.modal-body').html(response)
+                }
+            })
+
+        })
+    })
+
+    //Открытие добавления
+    $(document).ready(function () {
+        $('.btn_create').click(function () {
+            $.ajax({
+                url: '/request_create',
+                type: 'get',
+                success: function (response) {
+                    $('.modal-body1').html(response)
+                }
+            })
+
+        })
+    })
+
+    // открытие изменение модели
+    $(document).ready(function () {
+        $('.request_update').click(function () {
+            $.ajax({
+                url: '/request_update/' + this.id,
+                type: 'get',
+                success: function (response) {
+                    $('.modal-body1').html(response)
+                }
+            })
+        })
+    })
+
+
+</script>
+
+{% endblock javascript %}
